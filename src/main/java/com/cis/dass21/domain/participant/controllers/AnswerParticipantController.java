@@ -6,9 +6,14 @@ import com.cis.dass21.domain.participant.dtos.AnswerParticipantDTO;
 import com.cis.dass21.domain.participant.mappers.AnswerParticipantMapper;
 import com.cis.dass21.domain.participant.models.AnswerParticipant;
 import com.cis.dass21.domain.participant.utils.AnswerListWrapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -21,7 +26,8 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/participant")
+@RequestMapping(value = "/participant", produces = {"application/json"})
+@Tag(name = "DASS21 Demo API")
 public class AnswerParticipantController {
 
     @Autowired
@@ -30,7 +36,13 @@ public class AnswerParticipantController {
     @Autowired
     private AnswerParticipantBusiness answerParticipantBusiness;
 
-    @PostMapping
+    @Operation(summary = "Realiza a inclusão de usuário e suas respostas", method = "POST")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Inclusão dos dados realizada com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
+    })
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> include(@RequestBody @Valid AnswerParticipantDTO answerParticipantDTO) {
         try {
 
@@ -45,6 +57,12 @@ public class AnswerParticipantController {
         }
     }
 
+    @Operation(summary = "Realiza a busca de todos os usuarios e suas respostas", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Busca dos dados realizada com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
+    })
     @GetMapping
     public ResponseEntity<?> getAll() {
         try {
@@ -67,6 +85,12 @@ public class AnswerParticipantController {
         }
     }
 
+    @Operation(summary = "Realiza a busca de um usuario e suas respostas baseado no ID informado", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Busca dos dados realizada com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
+    })
     @GetMapping(path = "/{id:[\\d]+}")
     public ResponseEntity<?> getById(@PathVariable final BigDecimal id) {
         try {
@@ -80,7 +104,13 @@ public class AnswerParticipantController {
     }
 
 
-    @PutMapping
+    @Operation(summary = "Realiza a alteração de um usuario e suas respostas", method = "PUT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Alteração dos dados realizada com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
+    })
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> update(@Valid @RequestBody AnswerParticipantDTO answerParticipantDTO) {
         try {
             AnswerParticipant answerParticipant = answerParticipantMapper.toEntity(answerParticipantDTO);

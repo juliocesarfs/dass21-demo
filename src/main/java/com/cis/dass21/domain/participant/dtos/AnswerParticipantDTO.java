@@ -2,6 +2,7 @@ package com.cis.dass21.domain.participant.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -28,6 +29,7 @@ public class AnswerParticipantDTO implements Serializable {
     @Valid
     private Integer depressionTotalScore;
 
+    @Schema(hidden = true)
     private String depressionScale;
 
     @NotNull(message = "A pontuação de ansiedade é obrigatória")
@@ -35,6 +37,7 @@ public class AnswerParticipantDTO implements Serializable {
     @Valid
     private Integer anxietyTotalScore;
 
+    @Schema(hidden = true)
     private String anxietyScale;
 
     @NotNull(message = "A pontuação de estress é obrigatória")
@@ -42,8 +45,10 @@ public class AnswerParticipantDTO implements Serializable {
     @Valid
     private Integer stressTotalScore;
 
+    @Schema(hidden = true)
     private String stressScale;
 
+    @Schema(hidden = true)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime answerDate;
 }
