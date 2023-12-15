@@ -70,7 +70,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>com.cis.dass21</mainClass>
+					<mainClass>com.cis.dass21.Dass21ApiApplication</mainClass>
 				</configuration>
 
 				<executions>
